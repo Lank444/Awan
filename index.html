@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CloudShare — Shared Storage</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-icon">☁️</div>
+      <h1 class="login-title">CloudShare</h1>
+      <p class="login-sub">Simpan &amp; bagikan file secara real-time</p>
+      <input
+        id="login-input"
+        type="text"
+        placeholder="Masukkan nama kamu..."
+        class="login-input"
+        maxlength="30"
+      />
+      <button id="login-btn" class="login-btn" disabled>Masuk →</button>
+      <p class="login-warning">⚠️ File bersifat publik — terlihat oleh semua pengguna</p>
+    </div>
+  </div>
+
+  <!-- ===== MAIN APP ===== -->
+  <div id="app" class="app hidden">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-logo">☁️</div>
+        <span class="header-title">CloudShare</span>
+        <span class="badge-shared">SHARED</span>
+      </div>
+      <div class="header-right">
+        <div id="user-avatar" class="user-avatar"></div>
+        <span id="user-name-display" class="user-name-display"></span>
+        <button id="logout-btn" class="logout-btn">Keluar</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📁</div>
+          <div id="stat-total" class="stat-value">0</div>
+          <div class="stat-label">Total File</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💾</div>
+          <div id="stat-size" class="stat-value">0 B</div>
+          <div class="stat-label">Total Ukuran</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div id="stat-users" class="stat-value">0</div>
+          <div class="stat-label">Pengguna Aktif</div>
+        </div>
+      </div>
+
+      <!-- Upload Zone -->
+      <div id="drop-zone" class="drop-zone">
+        <div id="upload-idle" class="upload-idle">
+          <div class="upload-icon">📤</div>
+          <p class="upload-title">Klik atau drag file ke sini</p>
+          <p class="upload-sub">Semua tipe file didukung · File langsung terlihat oleh semua user</p>
+        </div>
+        <div id="upload-progress" class="upload-progress hidden">
+          <div class="spinner"></div>
+          <p id="upload-label" class="upload-label">Mengupload... 0%</p>
+          <div class="progress-bar-wrap">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+        <input id="file-input" type="file" multiple class="hidden" />
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input id="search-input" type="text" placeholder="Cari file atau nama user..." class="search-input" />
+        <button id="search-clear" class="search-clear hidden">✕</button>
+      </div>
+
+      <!-- File List -->
+      <div id="file-list" class="file-list"></div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state hidden">
+        <div class="empty-icon">📭</div>
+        <p class="empty-title">Belum ada file</p>
+        <p class="empty-sub">Upload file pertamamu!</p>
+      </div>
+
+      <p class="refresh-info">🔄 File diperbarui otomatis setiap 4 detik</p>
+    </main>
+  </div>
+
+  <!-- ===== MODALS ===== -->
+
+  <!-- Preview Modal -->
+  <div id="preview-modal" class="modal-overlay hidden">
+    <div class="modal-box preview-box">
+      <div class="modal-header">
+        <span id="preview-filename" class="modal-title"></span>
+        <button id="preview-close" class="modal-close">✕</button>
+      </div>
+      <div id="preview-content" class="preview-content"></div>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div id="delete-modal" class="modal-overlay hidden">
+    <div class="modal-box delete-box">
+      <div class="delete-icon">🗑️</div>
+      <p class="delete-title">Hapus file ini?</p>
+      <p id="delete-filename" class="delete-filename"></p>
+      <div class="delete-actions">
+        <button id="delete-cancel" class="btn-cancel">Batal</button>
+        <button id="delete-confirm" class="btn-delete">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
